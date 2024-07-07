@@ -86,7 +86,24 @@ for k=1:nchangshi
         ll22(k)=youhui2;
         ll3(k)=klr3;
         ll4(k)=svm_error_test;
+     %   a=a+logistic1;
+      %  b=b+logistic2;
+        b=0;
+        c=c+svm_error_test;
+
     catch
         zz=zz+1
     end
 end
+cishu=nchangshi-zz;
+a=a/cishu;   %有
+b=b/cishu;   %无
+c=c/cishu;   %svm
+std(ll1(ll1~=1))
+std(ll11(ll11~=1))
+std(ll2(ll2~=1))
+std(ll22(ll22~=1))
+std(ll3(ll3~=1))  %klr
+std(ll4(ll4~=1))  %sm
+
+
