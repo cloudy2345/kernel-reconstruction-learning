@@ -1,4 +1,4 @@
-function [a,b,c,cishu]=duoci4(nchangshi)   %¶à·ÖÀàÄ£ĞÍ£¬SVMÓëKLR
+function [a,b,c,cishu]=main(nchangshi)   %å¤šåˆ†ç±»æ¨¡å‹ï¼ŒSVMä¸KLR
 a=0;b=0;c=0;zz=0;d=0;e=0;
 ll1=ones(nchangshi,1);
 ll11=ll1;
@@ -9,7 +9,7 @@ ll3=ll1;
         [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node,node]=shuju13()  ;
         nn1=length(y_test);
      
-        moxing1=xunlian1(x_train,y_train,x_node); %ÎŞ»Ø¹éÏî,¸÷ÏîÍ¬ĞÔ
+        moxing1=xunlian1(x_train,y_train,x_node); %æ— å›å½’é¡¹,å„é¡¹åŒæ€§
         aa1=zeros(nn1,1);
         for i=1:nn1
             aa1(i)=moxing1(x_test(i,:));
@@ -17,7 +17,7 @@ ll3=ll1;
         wuhui1=sum(y_test~=aa1)./nn1;
         disp(['wuhui1=' num2str(wuhui1) ])
         
-        moxing11=xunlian11(x_train,y_train,x_node); %ÎŞ»Ø¹éÏî£¬¸÷ÏòÒìĞÔ
+        moxing11=xunlian11(x_train,y_train,x_node); %æ— å›å½’é¡¹ï¼Œå„å‘å¼‚æ€§
         aa11=zeros(nn1,1);
         for i=1:nn1
             aa11(i)=moxing11(x_test(i,:));
@@ -25,7 +25,7 @@ ll3=ll1;
         wuhui2=sum(y_test~=aa11)./nn1;
         disp(['wuhui2=' num2str(wuhui2) ])
         
-        moxing2=xunlian2(x_train,y_train,x_node);%ÓĞ»Ø¹éÏî£¬¸÷ÏîÍ¬ĞÔ
+        moxing2=xunlian2(x_train,y_train,x_node);%æœ‰å›å½’é¡¹ï¼Œå„é¡¹åŒæ€§
         aa2=zeros(nn1,1);
         for i=1:nn1
             aa2(i)=moxing2(x_test(i,:));
@@ -33,7 +33,7 @@ ll3=ll1;
         youhui1=sum(y_test~=aa2)./nn1;
         disp(['youhui1=' num2str(youhui1) ])
         
-        moxing22=xunlian22(x_train,y_train,x_node);%ÓĞ»Ø¹éÏî£¬¸÷ÏîÒìĞÔ
+        moxing22=xunlian22(x_train,y_train,x_node);%æœ‰å›å½’é¡¹ï¼Œå„é¡¹å¼‚æ€§
         aa22=zeros(nn1,1);
         for i=1:nn1
             aa22(i)=moxing22(x_test(i,:));
@@ -50,7 +50,7 @@ ll3=ll1;
         disp(['klr3=' num2str(klr3) ])
 
      
-      %  node2=xunlian7(x_train,y_train,x_node,node) ;        %ÓĞ»Ø¹éÏî
+      %  node2=xunlian7(x_train,y_train,x_node,node) ;        %æœ‰å›å½’é¡¹
      %   moxing3=xunlian2(x_train,y_train,x_train(node2,:))
       %  aa3=zeros(nn1,1);
       %  for i=1:nn1
@@ -60,7 +60,7 @@ ll3=ll1;
       %  disp(['logistic1=' num2str(logistic1) ]);
    
         
-     %   node3=xunlian8(x_train,y_train,x_node,node)          %ÎŞ»Ø¹éÏî
+     %   node3=xunlian8(x_train,y_train,x_node,node)          %æ— å›å½’é¡¹
      %   moxing33=xunlian1(x_train,y_train,x_train(node3,:));
      %   aa33=zeros(nn1,1);
     %    for i=1:nn1
