@@ -1,11 +1,11 @@
-function [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node1,x_node2,x_node3,x_node,node]=shuju11() %·ÖÀà
-n_train=450;  % ¸÷100¸ö
+function [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node1,x_node2,x_node3,x_node,node]=dataset11() %åˆ†ç±»
+n_train=450;  % å„100ä¸ª
 n_test=9000;
 nsuiji=5000;
-m=16;  %ÃÜ¶È¹À¼Æ
+m=16;  %å¯†åº¦ä¼°è®¡
 x_dim=2;
 m2=8;  %KLR
-%----------------------------------²úÉúÑµÁ·¼¯--------------------------------------------
+%----------------------------------äº§ç”Ÿè®­ç»ƒé›†--------------------------------------------
 
 
 
@@ -13,23 +13,23 @@ u1=[1;0];
 u2=[0;1];
 u3=[0;0];
 v1=[1,-1;-1,2]./8;
-v2=[2,-1;-1,1]./8;  %Ğ­·½²î¾ØÕó
+v2=[2,-1;-1,1]./8;  %åæ–¹å·®çŸ©é˜µ
 v3=[1,0;0,2]./8;
-x_train1=mvnrnd ( u1, v1, n_train./3 );   %100ĞĞ2ÁĞ£¬Ã¿ĞĞÒ»¸öx
+x_train1=mvnrnd ( u1, v1, n_train./3 );   %100è¡Œ2åˆ—ï¼Œæ¯è¡Œä¸€ä¸ªx
 x_train2=mvnrnd ( u2, v2, n_train./3 );
 x_train3=mvnrnd ( u3, v3, n_train./3 );
 x_train=[x_train1;x_train2;x_train3];
 y_train=[ones(n_train/3,1);2.*ones(n_train/3,1);3.*ones(n_train/3,1)];
 
-%----------------------²úÉú²âÊÔ¼¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-X11=mvnrnd ( u1, v1, n_test./3 );   %100ĞĞ2ÁĞ£¬Ã¿ĞĞÒ»¸öx
+%----------------------äº§ç”Ÿæµ‹è¯•é›†â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+X11=mvnrnd ( u1, v1, n_test./3 );   %100è¡Œ2åˆ—ï¼Œæ¯è¡Œä¸€ä¸ªx
 X22=mvnrnd ( u2, v2, n_test./3 );
 X33=mvnrnd ( u3, v3, n_test./3 );
 x_test=[X11;X22;X33];
 y_test=[ones(n_test/3,1);2.*ones(n_test/3,1);3.*ones(n_test/3,1)];
 
 
-function zuida=juli(X)   %Ò»¸öm¸öµãµÄ¼¯ºÏµÄÄÚ¾àÀë
+function zuida=juli(X)   %ä¸€ä¸ªmä¸ªç‚¹çš„é›†åˆçš„å†…è·ç¦»
     zuida=0;
     for i=1:m-1
         for j=i+1:m
@@ -40,7 +40,7 @@ function zuida=juli(X)   %Ò»¸öm¸öµãµÄ¼¯ºÏµÄÄÚ¾àÀë
         end
     end
 end
-function minnode=jiedian(train)  %´Óx_trainÖĞÕÒµ½×îºÃµÄm¸öµã
+function minnode=jiedian(train)  %ä»x_trainä¸­æ‰¾åˆ°æœ€å¥½çš„mä¸ªç‚¹
     zuid=10^10;
     for i=1:nsuiji
         a=randperm(n_train/3);
@@ -59,9 +59,9 @@ x_node2=x_train2(node2,:);
 node3=jiedian(x_train3);
 x_node3=x_train2(node3,:);
 
-%---------------------------------ÖØ¹¹Ñ¡ÓÃµÄ½Úµã--------------------------
+%---------------------------------é‡æ„é€‰ç”¨çš„èŠ‚ç‚¹--------------------------
 
-function zuida=juli2(X)   %Ò»¸öm¸öµãµÄ¼¯ºÏµÄÄÚ¾àÀë
+function zuida=juli2(X)   %ä¸€ä¸ªmä¸ªç‚¹çš„é›†åˆçš„å†…è·ç¦»
     zuida=0;
     for i=1:m2-1
         for j=i+1:m2
@@ -72,7 +72,7 @@ function zuida=juli2(X)   %Ò»¸öm¸öµãµÄ¼¯ºÏµÄÄÚ¾àÀë
         end
     end
 end
-function minnode=jiedian2(train)  %´Óx_trainÖĞÕÒµ½×îºÃµÄm¸öµã
+function minnode=jiedian2(train)  %ä»x_trainä¸­æ‰¾åˆ°æœ€å¥½çš„mä¸ªç‚¹
     zuid=10^10;
     for i=1:nsuiji
         a=randperm(n_train);
