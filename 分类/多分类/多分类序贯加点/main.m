@@ -4,12 +4,12 @@ ll1=ones(nchangshi,1);
 
 for k=1:nchangshi
     try
-        [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node1,x_node2,x_node3,x_node,node]=shuju11()  ;
+        [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node1,x_node2,x_node3,x_node,node]=dataset11()  ;
         nn1=length(y_test);
      
 
-        node2=xunlian7(x_train,y_train,x_node,node) ;        %有回归项
-        moxing3=xunlian2(x_train,y_train,x_train(node2,:))
+        node2=model7(x_train,y_train,x_node,node) ;        %有回归项
+        moxing3=model2(x_train,y_train,x_train(node2,:))
         aa3=zeros(nn1,1);
         for i=1:nn1
             aa3(i)=moxing3(x_test(i,:));
@@ -18,8 +18,8 @@ for k=1:nchangshi
         disp(['logistic1=' num2str(logistic1) ]);
    
         
-        node3=xunlian8(x_train,y_train,x_node,node)          %无回归项
-        moxing33=xunlian1(x_train,y_train,x_train(node3,:));
+        node3=model8(x_train,y_train,x_node,node)          %无回归项
+        moxing33=model1(x_train,y_train,x_train(node3,:));
         aa33=zeros(nn1,1);
         for i=1:nn1
             aa33(i)=moxing33(x_test(i,:));
