@@ -1,4 +1,4 @@
-function [a,b,c,cishu]=duoci5(nchangshi)   %¶à·ÖÀàPËã·¨£¬ÓĞ»Ø¹éÏß¸÷ÏòÍ¬ĞÔ
+function [a,b,c,cishu]=main(nchangshi)   %å¤šåˆ†ç±»Pç®—æ³•ï¼Œæœ‰å›å½’çº¿å„å‘åŒæ€§
 a=0;b=0;c=0;zz=0;d=0;e=0;
 ll1=ones(nchangshi,1);
 
@@ -8,7 +8,7 @@ for k=1:nchangshi
         nn1=length(y_test);
      
 
-        node2=xunlian7(x_train,y_train,x_node,node) ;        %ÓĞ»Ø¹éÏî
+        node2=xunlian7(x_train,y_train,x_node,node) ;        %æœ‰å›å½’é¡¹
         moxing3=xunlian2(x_train,y_train,x_train(node2,:))
         aa3=zeros(nn1,1);
         for i=1:nn1
@@ -18,32 +18,27 @@ for k=1:nchangshi
         disp(['logistic1=' num2str(logistic1) ]);
    
         
-        node3=xunlian8(x_train,y_train,x_node,node)          %ÎŞ»Ø¹éÏî
+        node3=xunlian8(x_train,y_train,x_node,node)          %æ— å›å½’é¡¹
         moxing33=xunlian1(x_train,y_train,x_train(node3,:));
         aa33=zeros(nn1,1);
         for i=1:nn1
             aa33(i)=moxing33(x_test(i,:));
-       end
+        end
         logistic2=sum(y_test~=aa33)./nn1;
         disp(['logistic2=' num2str(logistic2) ]);
-  
-        
-        
        
-        
         ll1(k)=logistic1;
 
         a=a+logistic1;
         b=b+logistic2;
-
 
     catch
         zz=zz+1
     end
 end
 cishu=nchangshi-zz
-a=a/cishu   %ÓĞ
-b=b/cishu   %ÎŞ
+a=a/cishu   %æœ‰
+b=b/cishu   %æ— 
 c=c/cishu   %svm
 std(ll1(ll1~=1))
 
