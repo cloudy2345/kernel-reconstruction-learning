@@ -1,11 +1,11 @@
-function A=duoci22(nchangshi)
+function A=main(nchangshi)
 a=-ones(nchangshi,1);
 b=a;
 zz=0;
 for k=1:nchangshi
     try
         tic
-        [x_train,x_test,x_node,fz]=shuju999();  %�ܶȹ���
+        [x_train,x_test,x_node,fz]=shuju999();  %ÃÜ¶È¹À¼Æ
         fg1=density5(x_train,x_node,x_test);
         toc
         n_test=length(x_test);
