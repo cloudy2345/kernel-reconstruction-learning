@@ -2,7 +2,7 @@ function [a,b,c,d,e,f,cishu]=main(nchangshi)  %a,b原来的  c,d添加后的
 a=0;b=0;c=0;d=0;zz=0;e=0;f=0;
 for k=1:nchangshi
     try
-        [x_train,x_test,y_train,y_test,x_node,y_node,node]=shuju6();
+        [x_train,x_test,y_train,y_test,x_node,y_node,node]=dataset6();
         node2=model8(x_train,y_train,x_node,y_node,node)  ; %d方法加点
         node3=model7(x_train,y_train,x_node,y_node,node) ;  %p加点法
         x_node2=x_train(node2,:);
