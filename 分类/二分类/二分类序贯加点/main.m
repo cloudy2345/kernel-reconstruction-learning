@@ -16,9 +16,6 @@ for k=1:nchangshi
         [error_train2,error_test2]=ceshi(fenlei2,x_train,x_test,y_train,y_test);
         [error_train3,error_test3]=ceshi(fenlei3,x_train,x_test,y_train,y_test);
         
- %       if error_test3>0.30
- %           error('nuyao')
- %       end    
         a=a+error_train1;
         b=b+error_test1;
         c=c+error_train2;
