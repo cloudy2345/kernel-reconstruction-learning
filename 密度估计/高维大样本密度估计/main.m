@@ -21,9 +21,6 @@ for k=1:nchangshi
       %  recon=sum((fzd-fg1).^2)/n_test;
       %  ksd=sum((fzd-fg2).^2)/n_test;
        
-        %if l3>1.5*l1
-        %    error('buyao')
-        %end
         a(k)=recon;
         b(k)=ksd;
 
