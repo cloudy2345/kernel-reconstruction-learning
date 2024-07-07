@@ -1,5 +1,5 @@
-%ÎÞ»Ø¹éÏî ¸÷ÏòÍ¬ÐÔ logistic-loss
-function moxing=xunlian1(x_train,y_train,x_node)   %·µ»Ø·ÖÀàÄ£ÐÍ
+%æ— å›žå½’é¡¹ å„å‘åŒæ€§ logistic-loss
+function moxing=model1(x_train,y_train,x_node)   %è¿”å›žåˆ†ç±»æ¨¡åž‹
 size1=size(x_train);
 x_dim=size1(2);
 n_train=size1(1);
@@ -10,19 +10,19 @@ theta0=fmincon(@(theta) julia(x_train,y_train,theta),1,[],[]);
 leibie=length(unique(y_train));
 theta0=theta0./leibie;
 
-Y=zeros(n_train,leibie);   %¿¼ÂÇ¶à·ÖÀàÇé¿ö,±íÊ¾ÊôÓÚÄÄ¸öÀà
+Y=zeros(n_train,leibie);   %è€ƒè™‘å¤šåˆ†ç±»æƒ…å†µ,è¡¨ç¤ºå±žäºŽå“ªä¸ªç±»
 for i=1:leibie
     Y(y_train==i,i)=1;
 end
 %---------------------------kernel--------------------------------
-function k=kernel(theta,x,y)         %ÁÐÏòÁ¿ theta>0
+function k=kernel(theta,x,y)         %åˆ—å‘é‡ theta>0
     k=exp(-1/x_dim.*sum((x-y).^2.*theta'));
 end
 
-%--------------------------------------¹¹½¨Ê¹ÓÃº¯Êý----------------------------------
-function RA=RAC(theta)  %²úÉúRA
-    RA=eye(m);   %¶Ô½ÇÏßÊÇ1
-    %Ö»ËãÁËÉÏ°ë²¿·Ö
+%--------------------------------------æž„å»ºä½¿ç”¨å‡½æ•°----------------------------------
+function RA=RAC(theta)  %äº§ç”ŸRA
+    RA=eye(m);   %å¯¹è§’çº¿æ˜¯1
+    %åªç®—äº†ä¸ŠåŠéƒ¨åˆ†
     for i1=1:m-1
         for j1=i1+1:m
             RA(i1,j1)=kernel(theta,x_node(i1,:),x_node(j1,:));  
@@ -30,7 +30,7 @@ function RA=RAC(theta)  %²úÉúRA
     end
     RA=RA+RA'-eye(m)+10^(-6).*eye(m);
 end
-function r=rA(theta,x)   %ra(x)µ½½áµãµÄÁÐÏòÁ¿,xÐÐÏòÁ¿
+function r=rA(theta,x)   %ra(x)åˆ°ç»“ç‚¹çš„åˆ—å‘é‡,xè¡Œå‘é‡
     r=zeros(m,1);
     for i2=1:m
         r(i2)=kernel(theta,x,x_node(i2,:));
@@ -39,46 +39,46 @@ end
 
 
 %---------------------------------theta-loss--------------------------------- 
-function loss=los1(theta,gamma)  %(gamma)ÁÐÏòÁ¿£¬thetaÐÐÏòÁ¿
+function loss=los1(theta,gamma)  %(gamma)åˆ—å‘é‡ï¼Œthetaè¡Œå‘é‡
     RA=RAC(theta);
-    RAN=inv(RA)  ;  %°ÑÄæÌá³öÀ´½ÚÊ¡Ê±¼ä
+    RAN=inv(RA)  ;  %æŠŠé€†æå‡ºæ¥èŠ‚çœæ—¶é—´
     loss=0;
-    gammaC=reshape(gamma,m,leibie);  %Ã¿ÁÐ¶ÔÓ¦gammac£¬°´ÁÐÈ¡ÅÅÊý¾Ý
+    gammaC=reshape(gamma,m,leibie);  %æ¯åˆ—å¯¹åº”gammacï¼ŒæŒ‰åˆ—å–æŽ’æ•°æ®
     VVRA=RAN;
     for i1=1:leibie-1
         VVRA=blkdiag(VVRA,RAN);
     end
 
     for i3=1:n_train
-        b=RAN*rA(theta,x_train(i3,:))  ;   %¹¹½¨ÎªÎÞ»Ø¹éÏîÐÎÊ½
-        f=gammaC'*b   ;      %º¯ÊýÖµ£¬ÏòÁ¿£¬leibieÐÐ 
+        b=RAN*rA(theta,x_train(i3,:))  ;   %æž„å»ºä¸ºæ— å›žå½’é¡¹å½¢å¼
+        f=gammaC'*b   ;      %å‡½æ•°å€¼ï¼Œå‘é‡ï¼Œleibieè¡Œ 
         loss=loss+log(sum(exp(f)))-Y(i3,:)*f;
     end
     loss=loss+0.5.*lambda1.*(gamma'*VVRA*gamma);
 end
 
 %---------------------------------gamma-loss---------------------------------
-function [los,lp,lh]=fprim(theta,gamma)  %±¾Éí µ¼Êý hession
+function [los,lp,lh]=fprim(theta,gamma)  %æœ¬èº« å¯¼æ•° hession
     RA=RAC(theta);
-    RAN=inv(RA)  ;  %°ÑÄæÌá³öÀ´½ÚÊ¡Ê±¼ä
+    RAN=inv(RA)  ;  %æŠŠé€†æå‡ºæ¥èŠ‚çœæ—¶é—´
     VVRA=RAN;
     for i1=1:leibie-1
         VVRA=blkdiag(VVRA,RAN);
     end
-    gammaC=reshape(gamma,m,leibie);  %Ã¿ÁÐ¶ÔÓ¦gammac£¬°´ÁÐÈ¡ÅÅÊý¾Ý
+    gammaC=reshape(gamma,m,leibie);  %æ¯åˆ—å¯¹åº”gammacï¼ŒæŒ‰åˆ—å–æŽ’æ•°æ®
     los=0;
     for i4=1:n_train
-        b=RAN*rA(theta,x_train(i4,:))  ;   %¹¹½¨ÎªÎÞ»Ø¹éÏîÐÎÊ½
-        f=gammaC'*b;      %º¯ÊýÖµ
+        b=RAN*rA(theta,x_train(i4,:))  ;   %æž„å»ºä¸ºæ— å›žå½’é¡¹å½¢å¼
+        f=gammaC'*b;      %å‡½æ•°å€¼
         los=los+log(sum(exp(f)))-Y(i4,:)*f;
     end
     los=los+0.5.*lambda1.*(gamma'*VVRA*gamma);        %%%%%%%%%%%%
     
-    if nargout > 1   % µ÷ÓÃfunº¯Êý²¢ÒªÇóÓÐÁ½¸öÊä³ö±äÁ¿¡£
+    if nargout > 1   % è°ƒç”¨funå‡½æ•°å¹¶è¦æ±‚æœ‰ä¸¤ä¸ªè¾“å‡ºå˜é‡ã€‚
     lp=zeros(m*leibie,1);
     for i5=1:n_train
-        b=RAN*rA(theta,x_train(i5,:))  ;   %¹¹½¨ÎªÎÞ»Ø¹éÏîÐÎÊ½
-        f=gammaC'*b;      %º¯ÊýÖµ
+        b=RAN*rA(theta,x_train(i5,:))  ;   %æž„å»ºä¸ºæ— å›žå½’é¡¹å½¢å¼
+        f=gammaC'*b;      %å‡½æ•°å€¼
         for k1=1:leibie
             lp(m*(k1-1)+1:m*k1)=lp(m*(k1-1)+1:m*k1)-b.*(y_train(i5)==k1)+ exp(f(k1)).*b./sum(exp(f));
         end
@@ -87,17 +87,17 @@ function [los,lp,lh]=fprim(theta,gamma)  %±¾Éí µ¼Êý hession
     lp=lp+lambda1.*VVRA*gamma;
     end
     
-    if nargout > 2   % µ÷ÓÃfunº¯Êý²¢ÒªÇóÓÐÁ½¸öÊä³ö±äÁ¿¡£
+    if nargout > 2   % è°ƒç”¨funå‡½æ•°å¹¶è¦æ±‚æœ‰ä¸¤ä¸ªè¾“å‡ºå˜é‡ã€‚
     lh=zeros(m*leibie,m*leibie);
     for i6=1:n_train
-        b=RAN*rA(theta,x_train(i6,:))  ;   %¹¹½¨ÎªÎÞ»Ø¹éÏîÐÎÊ½
-        f=gammaC'*b;      %º¯ÊýÖµ
-        for k1=1:leibie-1    %ÉÏÒ»°ë
+        b=RAN*rA(theta,x_train(i6,:))  ;   %æž„å»ºä¸ºæ— å›žå½’é¡¹å½¢å¼
+        f=gammaC'*b;      %å‡½æ•°å€¼
+        for k1=1:leibie-1    %ä¸Šä¸€åŠ
             for k2=k1+1:leibie
                 lh(m*(k1-1)+1:m*k1,m*(k2-1)+1:m*k2)=lh(m*(k1-1)+1:m*k1,m*(k2-1)+1:m*k2)-exp(f(k1)).*exp(f(k2)).*b*b'./(sum(exp(f))).^2;
             end
         end
-        for k1=1:leibie    %¶Ô½ÇÏß
+        for k1=1:leibie    %å¯¹è§’çº¿
             lh(m*(k1-1)+1:m*k1,m*(k1-1)+1:m*k1)=lh(m*(k1-1)+1:m*k1,m*(k1-1)+1:m*k1)+( exp(f(k1)).*sum(exp(f)).*b*b'-(exp(f(k1)))^2.*b*b' )./(sum(exp(f))).^2;
         end
     end
@@ -105,32 +105,32 @@ function [los,lp,lh]=fprim(theta,gamma)  %±¾Éí µ¼Êý hession
     for k3=1:leibie
         lhduijiao((k3-1)*m+1:k3*m,(k3-1)*m+1:k3*m)=lh((k3-1)*m+1:k3*m,(k3-1)*m+1:k3*m);
     end
-    lh=lh-lhduijiao; %ÉÏÈý½Ç
+    lh=lh-lhduijiao; %ä¸Šä¸‰è§’
     lh=lh+lh'+lhduijiao;
     lh=lh+lambda1.*VVRA;
 
     end
 end
 
-%---------------------------------¹À¼Æ²ÎÊý--------------------------------
+%---------------------------------ä¼°è®¡å‚æ•°--------------------------------
 cha=100;
 options = optimset('Algorithm','trust-region-reflective' ,'GradObj','on', 'Hessian','on');
 gamma0=ones(m*leibie,1);
 while cha>20 | cha<-5
-    [gamma0,loss1,exitflag1]=fmincon(@(gamma) fprim(theta0,gamma),gamma0,[],[],[],[],[],[],[],options);  %gamma1°üº¬gammaÓëb
+    [gamma0,loss1,exitflag1]=fmincon(@(gamma) fprim(theta0,gamma),gamma0,[],[],[],[],[],[],[],options);  %gamma1åŒ…å«gammaä¸Žb
     loss1
-    [theta0,loss2,exitflag2]=fmincon(@(theta) los1(theta,gamma0),theta0,[],[],[],[],0,[]); %Í¬ÐÔ
+    [theta0,loss2,exitflag2]=fmincon(@(theta) los1(theta,gamma0),theta0,[],[],[],[],0,[]); %åŒæ€§
     theta0
     loss2
     cha=loss1-loss2;
-end      %ÕÒµ½theta0Óëgamma
-%------------------------------¼ÆËãÎó²î---------------------------------
+end      %æ‰¾åˆ°theta0ä¸Žgamma
+%------------------------------è®¡ç®—è¯¯å·®---------------------------------
 RA=RAC(theta0);
-RAN=inv(RA)  ;  %°ÑÄæÌá³öÀ´½ÚÊ¡Ê±¼ä
-gammaC=reshape(gamma0,m,leibie);  %Ã¿ÁÐ¶ÔÓ¦gammac£¬°´ÁÐÈ¡ÅÅÊý¾Ý
-function fen=fenlei(x)  %thetaÐÐÏòÁ¿ gammaÁÐÏòÁ¿£¬xÐÐÏòÁ¿
+RAN=inv(RA)  ;  %æŠŠé€†æå‡ºæ¥èŠ‚çœæ—¶é—´
+gammaC=reshape(gamma0,m,leibie);  %æ¯åˆ—å¯¹åº”gammacï¼ŒæŒ‰åˆ—å–æŽ’æ•°æ®
+function fen=fenlei(x)  %thetaè¡Œå‘é‡ gammaåˆ—å‘é‡ï¼Œxè¡Œå‘é‡
     b=RAN*rA(theta0,x) ;
-    f=gammaC'*b;      %º¯ÊýÖµ
+    f=gammaC'*b;      %å‡½æ•°å€¼
     [mm1,fen]=max(f);
 end
 moxing=@fenlei;
