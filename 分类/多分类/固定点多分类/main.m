@@ -6,10 +6,12 @@ ll2=ll1;
 ll22=ll1;
 ll3=ll1;
 
-        [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node,node]=shuju13()  ;
+try
+
+        [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node,node]=dataset13()  ;
         nn1=length(y_test);
      
-        moxing1=xunlian1(x_train,y_train,x_node); %无回归项,各项同性
+        moxing1=model1(x_train,y_train,x_node); %无回归项,各项同性
         aa1=zeros(nn1,1);
         for i=1:nn1
             aa1(i)=moxing1(x_test(i,:));
@@ -17,7 +19,7 @@ ll3=ll1;
         wuhui1=sum(y_test~=aa1)./nn1;
         disp(['wuhui1=' num2str(wuhui1) ])
         
-        moxing11=xunlian11(x_train,y_train,x_node); %无回归项，各向异性
+        moxing11=model11(x_train,y_train,x_node); %无回归项，各向异性
         aa11=zeros(nn1,1);
         for i=1:nn1
             aa11(i)=moxing11(x_test(i,:));
@@ -25,7 +27,7 @@ ll3=ll1;
         wuhui2=sum(y_test~=aa11)./nn1;
         disp(['wuhui2=' num2str(wuhui2) ])
         
-        moxing2=xunlian2(x_train,y_train,x_node);%有回归项，各项同性
+        moxing2=model2(x_train,y_train,x_node);%有回归项，各项同性
         aa2=zeros(nn1,1);
         for i=1:nn1
             aa2(i)=moxing2(x_test(i,:));
@@ -33,7 +35,7 @@ ll3=ll1;
         youhui1=sum(y_test~=aa2)./nn1;
         disp(['youhui1=' num2str(youhui1) ])
         
-        moxing22=xunlian22(x_train,y_train,x_node);%有回归项，各项异性
+        moxing22=model22(x_train,y_train,x_node);%有回归项，各项异性
         aa22=zeros(nn1,1);
         for i=1:nn1
             aa22(i)=moxing22(x_test(i,:));
@@ -41,7 +43,7 @@ ll3=ll1;
         youhui2=sum(y_test~=aa22)./nn1;
         disp(['youhui2=' num2str(youhui2) ])
      
-        moxing3=xunlian3(x_train,y_train,x_train) ; %KLR
+        moxing3=model3(x_train,y_train,x_train) ; %KLR
         aa3=zeros(nn1,1);
         for i=1:nn1
             aa3(i)=moxing3(x_test(i,:));
@@ -50,8 +52,8 @@ ll3=ll1;
         disp(['klr3=' num2str(klr3) ])
 
      
-      %  node2=xunlian7(x_train,y_train,x_node,node) ;        %有回归项
-     %   moxing3=xunlian2(x_train,y_train,x_train(node2,:))
+      %  node2=model7(x_train,y_train,x_node,node) ;        %有回归项
+     %   moxing3=model2(x_train,y_train,x_train(node2,:))
       %  aa3=zeros(nn1,1);
       %  for i=1:nn1
       %      aa3(i)=moxing3(x_test(i,:));
@@ -60,8 +62,8 @@ ll3=ll1;
       %  disp(['logistic1=' num2str(logistic1) ]);
    
         
-     %   node3=xunlian8(x_train,y_train,x_node,node)          %无回归项
-     %   moxing33=xunlian1(x_train,y_train,x_train(node3,:));
+     %   node3=model8(x_train,y_train,x_node,node)          %无回归项
+     %   moxing33=model1(x_train,y_train,x_train(node3,:));
      %   aa33=zeros(nn1,1);
     %    for i=1:nn1
     %        aa33(i)=moxing33(x_test(i,:));
