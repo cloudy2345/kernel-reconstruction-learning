@@ -4,7 +4,7 @@ b=a;
 zz = 0;
 for k=1:nchangshi
     try
-        [x_train,x_test,x_node,fz]=shuju5();  %ÃÜ¶È¹À¼Æ
+        [x_train,x_test,x_node,fz]=dataset5();  %ÃÜ¶È¹À¼Æ
         moxing=density3(x_train,x_node)
         n_test=length(x_test);
         fg1=zeros(n_test,1); 
