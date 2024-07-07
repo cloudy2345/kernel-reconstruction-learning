@@ -6,8 +6,8 @@ ll2=ll1;
 ll22=ll1;
 ll3=ll1;
 
-try
-
+for k=1:nchangshi
+    try
         [x_train1,x_train2,x_train3,x_train,y_train,x_test,y_test,x_node,node]=dataset13()  ;
         nn1=length(y_test);
      
