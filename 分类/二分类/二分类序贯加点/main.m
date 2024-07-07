@@ -1,15 +1,15 @@
-function [a,b,c,d,e,f,cishu]=zaicichangshi(nchangshi)  %a,bÔ­À´µÄ  c,dÌí¼ÓºóµÄ
+function [a,b,c,d,e,f,cishu]=main(nchangshi)  %a,båŸæ¥çš„  c,dæ·»åŠ åçš„
 a=0;b=0;c=0;d=0;zz=0;e=0;f=0;
 for k=1:nchangshi
     try
         [x_train,x_test,y_train,y_test,x_node,y_node,node]=shuju6();
-        node2=xunlian8(x_train,y_train,x_node,y_node,node)  ; %d·½·¨¼Óµã
-        node3=xunlian7(x_train,y_train,x_node,y_node,node) ;  %p¼Óµã·¨
+        node2=xunlian8(x_train,y_train,x_node,y_node,node)  ; %dæ–¹æ³•åŠ ç‚¹
+        node3=xunlian7(x_train,y_train,x_node,y_node,node) ;  %påŠ ç‚¹æ³•
         x_node2=x_train(node2,:);
         y_node2=y_train(node2);
         x_node3=x_train(node3,:);
         y_node3=y_train(node3);
-        fenlei1=xunlian2(x_train,y_train,x_node,y_node)  ; %²»¼ÓµãÄ£ĞÍ
+        fenlei1=xunlian2(x_train,y_train,x_node,y_node)  ; %ä¸åŠ ç‚¹æ¨¡å‹
         fenlei2=xunlian3(x_train,y_train,x_node2);       %d
         fenlei3=xunlian2(x_train,y_train,x_node3,y_node3);   %p
         [error_train1,error_test1]=ceshi(fenlei1,x_train,x_test,y_train,y_test);
