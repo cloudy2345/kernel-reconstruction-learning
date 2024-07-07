@@ -86,3 +86,7 @@ for k=1:nchangshi
         ll22(k)=youhui2;
         ll3(k)=klr3;
         ll4(k)=svm_error_test;
+    catch
+        zz=zz+1
+    end
+end
