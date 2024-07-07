@@ -1,17 +1,17 @@
-function [x_train,x_test,x_node,fz]=shuju5()  %ÃÜ¶È¹À¼Æ
-n_train=600;  % ¸÷100¸ö
+function [x_train,x_test,x_node,fz]=dataset5()  %å¯†åº¦ä¼°è®¡
+n_train=600;  % å„100ä¸ª
 n_test=10000;
 nsuiji=5000;
 m=8;
 x_dim=1;
 alpha=0.4;
-%----------------------------------²úÉúÑµÁ·¼¯--------------------------------------------
+%----------------------------------äº§ç”Ÿè®­ç»ƒé›†--------------------------------------------
 u1=-2 ;
 u2=1;
 v1=0.5;
-v2=0.5;  %±ê×¼²î
+v2=0.5;  %æ ‡å‡†å·®
 
-x_train=zeros(n_train,x_dim);   %»ìºÏ¸ßË¹·Ö²¼
+x_train=zeros(n_train,x_dim);   %æ··åˆé«˜æ–¯åˆ†å¸ƒ
 for i=1:n_train
     if rand(1)<alpha
         x_train(i,:)=normrnd ( u1, v1,1 );
@@ -21,8 +21,8 @@ for i=1:n_train
 end
 
 
-%----------------------²úÉú²âÊÔ¼¯¡ªmcmc¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
-x_test=zeros(n_test,x_dim);   %»ìºÏ¸ßË¹·Ö²¼
+%----------------------äº§ç”Ÿæµ‹è¯•é›†â€”mcmcâ€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+x_test=zeros(n_test,x_dim);   %æ··åˆé«˜æ–¯åˆ†å¸ƒ
 for i=1:n_test
     if rand(1)<alpha
         x_test(i,:)=normrnd ( u1, v1,1 );
@@ -31,8 +31,8 @@ for i=1:n_test
     end
 end
 
-%----------------------------ÕÒ½Úµã---------------------------------------
-function zuida=juli(X)   %Ò»¸öm¸öµãµÄ¼¯ºÏµÄÄÚ¾àÀë
+%----------------------------æ‰¾èŠ‚ç‚¹---------------------------------------
+function zuida=juli(X)   %ä¸€ä¸ªmä¸ªç‚¹çš„é›†åˆçš„å†…è·ç¦»
     zuida=0;
     for i=1:m-1
         for j=i+1:m
@@ -43,7 +43,7 @@ function zuida=juli(X)   %Ò»¸öm¸öµãµÄ¼¯ºÏµÄÄÚ¾àÀë
         end
     end
 end
-function minnode=jiedian(train)  %´Óx_trainÖĞÕÒµ½×îºÃµÄm¸öµã
+function minnode=jiedian(train)  %ä»x_trainä¸­æ‰¾åˆ°æœ€å¥½çš„mä¸ªç‚¹
     zuid=10^10;
     for i=1:nsuiji
         a=randperm(n_train/2);
